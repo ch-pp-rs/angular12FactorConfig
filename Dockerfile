@@ -1,12 +1,12 @@
 # Install node dependencies. Keep these in a seperate container named 'base' to speed up deployment.
-FROM node:alpine AS base
+FROM node:alpine AS dependencies
 WORKDIR /usr/src/app
 COPY package*.json ./
 
 RUN npm install
 
 # Build angular project
-FROM base AS build
+FROM dependencies AS build
 COPY src src
 COPY angular.json .
 COPY tsconfig.json .
